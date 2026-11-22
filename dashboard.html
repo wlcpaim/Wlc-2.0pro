@@ -9,63 +9,125 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
-<body class="bg-slate-950 text-slate-200 font-sans antialiased min-h-screen flex">
-    <aside id="sidebar" class="fixed inset-y-0 left-0 z-50 w-64 bg-slate-900/50 backdrop-blur-xl border-r border-slate-800 flex flex-col">
-        <div class="h-20 flex items-center px-8 border-b border-slate-800/50">
-            <a href="index.html" class="text-xl font-bold text-white flex items-center gap-2">
-                <i class="fa-solid fa-cube text-indigo-500"></i> Nexus<span class="text-indigo-500">SaaS</span>
+<body class="bg-slate-950 text-slate-200 font-sans antialiased min-h-screen flex flex-col md:flex-row">
+    
+    <!-- Mobile Overlay -->
+    <div id="sidebar-overlay" class="fixed inset-0 z-40 bg-slate-950/80 backdrop-blur-sm hidden md:hidden transition-opacity"></div>
+
+    <!-- Sidebar / Menu Tecnológico -->
+    <aside id="sidebar" class="fixed inset-y-0 left-0 z-50 w-72 bg-slate-900/90 backdrop-blur-2xl border-r border-slate-800/80 flex flex-col -translate-x-full md:translate-x-0 transition-transform duration-300 ease-in-out">
+        <div class="h-20 flex items-center justify-between px-6 border-b border-slate-800/50">
+            <a href="index.html" class="text-xl font-bold text-white flex items-center gap-2.5">
+                <div class="w-9 h-9 rounded-xl bg-indigo-600/20 border border-indigo-500/30 flex items-center justify-center text-indigo-400">
+                    <i class="fa-solid fa-cube text-base"></i>
+                </div>
+                Nexus<span class="text-indigo-500">SaaS</span>
             </a>
+            <button id="sidebar-close" class="md:hidden text-slate-400 hover:text-white p-2">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
         </div>
-        <nav id="nav-accordion" class="flex-1 px-4 py-6 space-y-8">
+
+        <nav id="nav-accordion" class="flex-1 px-4 py-6 space-y-6 overflow-y-auto">
             <div class="menu-group">
-                <p class="px-4 text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-2">Plataforma</p>
+                <p class="px-3 text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-2">Plataforma</p>
                 <div class="nav-item">
-                    <button class="flex w-full items-center justify-between px-4 py-3 text-sm font-semibold text-white bg-indigo-600/10 border border-indigo-500/20 rounded-xl transition-all">
-                        <span class="flex items-center gap-3"><i class="fa-solid fa-chart-line w-5 text-indigo-400"></i> Visão Geral</span>
-                        <i class="fa-solid fa-chevron-down text-[10px]"></i>
+                    <button class="flex w-full items-center justify-between px-3.5 py-3 text-sm font-semibold text-white bg-indigo-600/10 border border-indigo-500/20 rounded-xl transition-all shadow-inner group">
+                        <span class="flex items-center gap-3"><i class="fa-solid fa-chart-line w-5 text-indigo-400 group-hover:scale-110 transition-transform"></i> Visão Geral</span>
+                        <i class="fa-solid fa-chevron-down text-[10px] transition-transform duration-200"></i>
                     </button>
-                    <div class="sub-menu hidden px-4 py-2 space-y-1">
-                        <a href="#" class="block px-4 py-2 text-xs text-slate-400 hover:text-white transition-colors">Analytics Real-time</a>
-                        <a href="#" class="block px-4 py-2 text-xs text-slate-400 hover:text-white transition-colors">Métricas de ROI</a>
+                    <div class="sub-menu max-h-40 overflow-hidden transition-all duration-300 ease-in-out pl-4 pt-1 space-y-1">
+                        <a href="#" class="flex items-center gap-2 px-4 py-2 text-xs font-medium text-slate-400 hover:text-white hover:bg-slate-800/40 rounded-lg transition-colors">
+                            <span class="w-1 h-1 rounded-full bg-indigo-500"></span> Analytics Real-time
+                        </a>
+                        <a href="#" class="flex items-center gap-2 px-4 py-2 text-xs font-medium text-slate-400 hover:text-white hover:bg-slate-800/40 rounded-lg transition-colors">
+                            <span class="w-1 h-1 rounded-full bg-slate-600"></span> Métricas de ROI
+                        </a>
                     </div>
                 </div>
             </div>
+
             <div class="menu-group">
-                <p class="px-4 text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-2">Operações</p>
+                <p class="px-3 text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-2">Operações</p>
                 <div class="nav-item">
-                    <button class="flex w-full items-center justify-between px-4 py-3 text-sm font-medium text-slate-400 hover:text-white hover:bg-slate-800/50 rounded-xl transition-all">
-                        <span class="flex items-center gap-3"><i class="fa-solid fa-folder-open w-5"></i> Projetos</span>
-                        <i class="fa-solid fa-chevron-right text-[10px]"></i>
+                    <button class="flex w-full items-center justify-between px-3.5 py-3 text-sm font-medium text-slate-400 hover:text-white hover:bg-slate-800/50 border border-transparent rounded-xl transition-all group">
+                        <span class="flex items-center gap-3"><i class="fa-solid fa-folder-open w-5 text-slate-500 group-hover:text-slate-300 transition-colors"></i> Projetos</span>
+                        <i class="fa-solid fa-chevron-right text-[10px] text-slate-500 transition-transform duration-200"></i>
                     </button>
-                    <div class="sub-menu hidden px-4 py-2 space-y-1">
-                        <a href="#" class="block px-4 py-2 text-xs text-slate-400 hover:text-white transition-colors">Projetos Ativos</a>
-                        <a href="#" class="block px-4 py-2 text-xs text-slate-400 hover:text-white transition-colors">Cronogramas</a>
+                    <div class="sub-menu max-h-0 overflow-hidden transition-all duration-300 ease-in-out pl-4 space-y-1">
+                        <a href="#" class="flex items-center gap-2 px-4 py-2 text-xs font-medium text-slate-400 hover:text-white hover:bg-slate-800/40 rounded-lg transition-colors">
+                            <span class="w-1 h-1 rounded-full bg-slate-600"></span> Projetos Ativos
+                        </a>
+                        <a href="#" class="flex items-center gap-2 px-4 py-2 text-xs font-medium text-slate-400 hover:text-white hover:bg-slate-800/40 rounded-lg transition-colors">
+                            <span class="w-1 h-1 rounded-full bg-slate-600"></span> Cronogramas
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-group">
+                <p class="px-3 text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-2">Inteligência</p>
+                <div class="nav-item">
+                    <button class="flex w-full items-center justify-between px-3.5 py-3 text-sm font-medium text-slate-400 hover:text-white hover:bg-slate-800/50 border border-transparent rounded-xl transition-all group">
+                        <span class="flex items-center gap-3"><i class="fa-solid fa-brain w-5 text-slate-500 group-hover:text-slate-300 transition-colors"></i> Modelos IA</span>
+                        <i class="fa-solid fa-chevron-right text-[10px] text-slate-500 transition-transform duration-200"></i>
+                    </button>
+                    <div class="sub-menu max-h-0 overflow-hidden transition-all duration-300 ease-in-out pl-4 space-y-1">
+                        <a href="#" class="flex items-center gap-2 px-4 py-2 text-xs font-medium text-slate-400 hover:text-white hover:bg-slate-800/40 rounded-lg transition-colors">
+                            <span class="w-1 h-1 rounded-full bg-slate-600"></span> Assistente GPT-4
+                        </a>
+                        <a href="#" class="flex items-center gap-2 px-4 py-2 text-xs font-medium text-slate-400 hover:text-white hover:bg-slate-800/40 rounded-lg transition-colors">
+                            <span class="w-1 h-1 rounded-full bg-slate-600"></span> Fine-Tuning
+                        </a>
                     </div>
                 </div>
             </div>
         </nav>
-        <div class="p-4 border-t border-slate-800">
-            <div class="flex items-center gap-3 p-3 bg-slate-950 rounded-xl border border-slate-800">
-                <div class="w-8 h-8 rounded-full bg-indigo-600 flex items-center justify-center font-bold text-xs text-white">JS</div>
-                <div class="flex-1">
-                    <p class="text-xs font-bold text-white">João Silva</p>
-                    <p class="text-[10px] text-emerald-500 flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> Online</p>
+
+        <div class="p-4 border-t border-slate-800/80 bg-slate-900/40">
+            <div class="flex items-center gap-3 p-3 bg-slate-950/60 rounded-xl border border-slate-800">
+                <div class="w-9 h-9 rounded-lg bg-indigo-600 flex items-center justify-center font-bold text-xs text-white shadow-md shadow-indigo-500/20">JS</div>
+                <div class="flex-1 min-w-0">
+                    <p class="text-xs font-bold text-white truncate">João Silva</p>
+                    <p class="text-[10px] text-emerald-400 flex items-center gap-1.5 mt-0.5">
+                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse">+</span> Online
+                    </p>
                 </div>
             </div>
         </div>
     </aside>
-    <div class="flex-1 flex flex-col md:pl-64">
-        <header class="h-20 border-b border-slate-800 flex items-center px-10 justify-between">
-            <h1 class="text-lg font-semibold text-white">Visão Geral</h1>
+
+    <!-- Main Content Wrapper -->
+    <div class="flex-1 flex flex-col md:pl-72 min-w-0">
+        <header class="h-20 border-b border-slate-800 flex items-center px-6 md:px-10 justify-between bg-slate-950/80 backdrop-blur-md sticky top-0 z-30">
+            <div class="flex items-center gap-4">
+                <button id="sidebar-toggle" class="md:hidden w-10 h-10 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-center text-slate-300 hover:text-white transition-colors">
+                    <i class="fa-solid fa-bars text-base"></i>
+                </button>
+                <h1 class="text-lg font-semibold text-white tracking-tight">Visão Geral</h1>
+            </div>
+            <div class="flex items-center gap-3">
+                <span class="hidden sm:inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                    <span class="w-1.5 h-1.5 mr-2 rounded-full bg-emerald-500"></span> Sistema Estável
+                </span>
+            </div>
         </header>
-        <main class="p-10">
-            <div class="bg-slate-900/40 border border-slate-800 p-8 rounded-2xl backdrop-blur-sm">
-                <div class="h-[400px] w-full">
+        
+        <main class="p-6 md:p-10 flex-1">
+            <div class="bg-slate-900/40 border border-slate-800 p-6 md:p-8 rounded-2xl backdrop-blur-sm shadow-xl">
+                <div class="mb-6 flex items-center justify-between">
+                    <div>
+                        <h2 class="text-base font-bold text-white">Desempenho de ROI</h2>
+                        <p class="text-xs text-slate-400 mt-0.5">Análise consolidada do último semestre</p>
+                    </div>
+                </div>
+                <div class="h-[350px] md:h-[400px] w-full">
                     <canvas id="roiChart"></canvas>
                 </div>
             </div>
         </main>
     </div>
+
     <script src="script.js"></script>
 </body>
 </html>
