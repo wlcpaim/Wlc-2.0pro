@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const subMenu = item.querySelector('.sub-menu');
         
         btn.addEventListener('click', () => {
-            const isClosed = subMenu.style.maxHeight && subMenu.style.maxHeight !== '0px';
+            const isClosed = !subMenu.style.maxHeight || subMenu.style.maxHeight === '0px';
 
             // Close all other submenus first (Auto Collapse)
             navItems.forEach(otherItem => {
@@ -33,9 +33,9 @@ document.addEventListener('DOMContentLoaded', () => {
             const chevron = btn.querySelector('i:last-child');
             const icon = btn.querySelector('i:first-child');
 
-            if (!isClosed) {
+            if (isClosed) {
                 // Open clicked submenu
-                subMenu.style.maxHeight = subMenu.scrollHeight + 'px';
+                subMenu.style.maxHeight = subMenu.scrollHeight + 20 + 'px';
                 btn.classList.add('bg-indigo-600/10', 'border-indigo-500/20', 'text-white');
                 btn.classList.remove('text-slate-400', 'border-transparent');
                 
@@ -61,10 +61,10 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Initialize first menu open
+    // Initialize first menu open correctly on load
     const firstSubMenu = document.querySelector('.nav-item .sub-menu');
     if (firstSubMenu) {
-        firstSubMenu.style.maxHeight = firstSubMenu.scrollHeight + 'px';
+        firstSubMenu.style.maxHeight = firstSubMenu.scrollHeight + 20 + 'px';
     }
 
     // Mobile Sidebar Drawer Toggle Logic
@@ -81,6 +81,16 @@ document.addEventListener('DOMContentLoaded', () => {
     if (sidebarToggle) sidebarToggle.addEventListener('click', toggleSidebar);
     if (sidebarClose) sidebarClose.addEventListener('click', toggleSidebar);
     if (sidebarOverlay) sidebarOverlay.addEventListener('click', toggleSidebar);
+
+    // Close sidebar on mobile when a submenu link is clicked
+    const subMenuLinks = document.querySelectorAll('.sub-menu a');
+    subMenuLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            if (window.innerWidth < 768) {
+                toggleSidebar();
+            }
+        });
+    });
 
     // Chart Logic
     const ctx = document.getElementById('roiChart');
@@ -100,7 +110,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     tension: 0.4,
                     fill: true,
                     borderWidth: 3,
-                    pointRadius: 5,
+                    pointRadius: 4,
                     pointBackgroundColor: '#ffffff',
                     pointBorderColor: '#6366f1',
                     pointBorderWidth: 2
