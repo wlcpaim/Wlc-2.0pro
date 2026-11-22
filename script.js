@@ -1,4 +1,27 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // Accordion Navigation Logic
+    const navItems = document.querySelectorAll('.nav-item > button');
+    
+    navItems.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const parent = btn.parentElement;
+            const subMenu = parent.querySelector('.sub-menu');
+            const isClosed = subMenu.classList.contains('hidden');
+
+            // Close others
+            document.querySelectorAll('.sub-menu').forEach(m => m.classList.add('hidden'));
+            document.querySelectorAll('.nav-item > button i.fa-chevron-down').forEach(i => {
+                i.className = 'fa-solid fa-chevron-right text-[10px]';
+            });
+
+            if (isClosed) {
+                subMenu.classList.remove('hidden');
+                btn.querySelector('i:last-child').className = 'fa-solid fa-chevron-down text-[10px]';
+            }
+        });
+    });
+
+    // Chart Logic
     const ctx = document.getElementById('roiChart');
     if (ctx) {
         const gradient = ctx.getContext('2d').createLinearGradient(0, 0, 0, 400);
@@ -10,7 +33,6 @@ document.addEventListener('DOMContentLoaded', () => {
             data: {
                 labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun'],
                 datasets: [{
-                    label: 'ROI (%)',
                     data: [12, 19, 3, 5, 25, 32],
                     borderColor: '#6366f1',
                     backgroundColor: gradient,
@@ -21,31 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     pointBackgroundColor: '#ffffff'
                 }]
             },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: { 
-                    legend: { display: false },
-                    tooltip: {
-                        backgroundColor: '#020617',
-                        borderColor: '#1e293b',
-                        borderWidth: 1,
-                        padding: 12
-                    }
-                },
-                scales: {
-                    y: { 
-                        grid: { color: '#0f172a' }, 
-                        ticks: { color: '#64748b' },
-                        border: { display: false }
-                    },
-                    x: { 
-                        grid: { display: false }, 
-                        ticks: { color: '#64748b' },
-                        border: { display: false }
-                    }
-                }
-            }
+            options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
         });
     }
 });
